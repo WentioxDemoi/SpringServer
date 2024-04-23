@@ -1,4 +1,4 @@
-package com.example.Friend;
+package com.example.Friend.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

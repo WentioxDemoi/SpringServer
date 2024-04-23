@@ -1,2 +1,4 @@
+/Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/controller/HelloController.java
 /Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/FriendApplication.java
-/Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/HelloController.java
+/Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/repository/user/UserRepository.java
+/Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/model/user/UserModel.java
