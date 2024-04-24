@@ -1,7 +1,10 @@
 package com.example.Friend.controller.User;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +21,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
+    @PostMapping("/add_user")
     public String AddUser(@RequestBody UserDTO user) {
         this.userService.AddUser(user);
         return "User Saved";
     }
 
-    // @GetMapping("/get_user")
-    // public String Get() {
-    //     return (UserService_.get_user)
-    // }
+    @GetMapping("/get_users")
+    public List<User> GetUsers() {
+        return (this.userService.GetAllUsers());
+    }
 }

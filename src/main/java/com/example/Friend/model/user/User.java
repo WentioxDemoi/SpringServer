@@ -26,6 +26,7 @@ public class User {
     @Column(name = "Password")
     private String Password;
 
+    public User() {}
     public User(String Username, String Password, String Email) {
 
         this.Username = Username;

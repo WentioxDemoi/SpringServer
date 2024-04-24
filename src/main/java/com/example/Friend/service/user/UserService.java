@@ -1,5 +1,6 @@
 package com.example.Friend.service.user;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Friend.model.user.User;
@@ -15,6 +16,10 @@ public class UserService {
     public void AddUser(UserDTO userDTO) {
         User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail());
         userRepository.save(user);
+    }
+
+    public List<User> GetAllUsers() {
+        return userRepository.findAll();
     }
 
 }
