@@ -4,4 +4,5 @@
 /Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/controller/User/UserController.java
 /Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/FriendApplication.java
 /Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/repository/user/UserRepository.java
+/Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/config/SecurityConfig.java
 /Users/malloc/Documents/Friends/SpringServer/src/main/java/com/example/Friend/model/user/UserDTO.java

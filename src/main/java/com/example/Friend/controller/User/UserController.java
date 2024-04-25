@@ -16,6 +16,7 @@ import com.example.Friend.service.user.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -31,4 +32,7 @@ public class UserController {
     public List<User> GetUsers() {
         return (this.userService.GetAllUsers());
     }
+
+    
+
 }
