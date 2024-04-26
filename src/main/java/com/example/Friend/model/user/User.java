@@ -1,10 +1,5 @@
 package com.example.Friend.model.user;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Data;
-
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.*;
 
 
@@ -14,24 +9,21 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @Column(name = "Username", nullable = false, length = 64)
-    private String Username;
-
-    @Column(name = "Email")
-    private String Email;
-
-    @Column(name = "Password")
-    private String Password;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+    private String role; //Eg: ADMIN,USER
 
     public User() {}
-    public User(String Username, String Password, String Email) {
+    public User(String Username, String Password, String Email, String Role) {
 
-        this.Username = Username;
-        this.Password = Password;
-        this.Email = Email;
+        this.username = Username;
+        this.password = Password;
+        this.email = Email;
+        this.role = Role;
+
 
     }
 }

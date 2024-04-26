@@ -22,16 +22,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add_user")
-    public String AddUser(@RequestBody UserDTO user) {
-        this.userService.AddUser(user);
-        return "User Saved";
-    }
+    // @PostMapping("/add_user")
+    // public String AddUser(@RequestBody UserDTO user) {
+    //     this.userService.AddUser(user);
+    //     return "User Saved";
+    // }
 
-    @GetMapping("/get_users")
-    public List<User> GetUsers() {
-        return (this.userService.GetAllUsers());
-    }
+    // @GetMapping("/get_users")
+    // public List<User> GetUsers() {
+    //     return (this.userService.GetAllUsers());
+    // }
 
     
 

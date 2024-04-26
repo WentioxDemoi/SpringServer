@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class HelloController {
 
+    @GetMapping("/oui")
+    public String HelloWorld() {
+        return "HelloWorld!";
+    }
+
     @GetMapping("/login")
     public String loginEndpoint() {
         return "Login!";
