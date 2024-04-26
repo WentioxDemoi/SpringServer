@@ -1,8 +1,9 @@
-package com.example.Friend.controller.User;
+package com.example.Friend.controller.Auth.PWDAuth;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,16 +18,20 @@ import com.example.Friend.service.user.UserService;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
-public class UserController {
+public class PWDAuthController {
 
     @Autowired
     private UserService userService;
 
-    // @PostMapping("/add_user")
-    // public String AddUser(@RequestBody UserDTO user) {
-    //     this.userService.AddUser(user);
-    //     return "User Saved";
-    // }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+
+    @PostMapping("/register")
+    public User addUser(@RequestBody UserDTO user) {
+        return this.userService.handleUserRegistration(new User(user.Username, user.Email, passwordEncoder.encode(user.Password), user.Role));
+    }
 
     // @GetMapping("/get_users")
     // public List<User> GetUsers() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.Friend.model.user.User;
 import com.example.Friend.model.user.UserDTO;
@@ -32,6 +33,10 @@ public class UserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException(username);
         }
+    }
+
+    public User handleUserRegistration(User user) {
+        return repository.save(user);
     }
 
     private String[] getRoles(User user) {

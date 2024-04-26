@@ -71,18 +71,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-          .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                  authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                          .requestMatchers("/test/admin/**").hasAnyRole("ADMIN")
-                          .requestMatchers("/test/user/**").hasAnyRole("USER", "ADMIN")
-                          .requestMatchers("/test/login/**").permitAll()
-                          .anyRequest().authenticated())
-          .httpBasic(Customizer.withDefaults())
-          .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-    
-        return http.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/home", "/user/**").permitAll();
+                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
+                    registry.requestMatchers("/user/**").hasRole("USER");
+                    registry.anyRequest().authenticated();
+                })
+                // .formLogin(httpSecurityFormLoginConfigurer -> {
+                //     httpSecurityFormLoginConfigurer
+                //             .loginPage("/login")
+                //             .successHandler(new AuthenticationSuccessHandler())
+                //             .permitAll();
+                // })
+                .build();
     }
 
     // @Bean
