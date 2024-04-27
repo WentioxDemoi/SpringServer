@@ -75,9 +75,9 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/home", "/user/**").permitAll();
-                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
-                    registry.requestMatchers("/user/**").hasRole("USER");
+                    registry.requestMatchers("/test/home", "/user/**", "/login", "/logout").permitAll();
+                    registry.requestMatchers("/test/admin/**").hasRole("ADMIN");
+                    registry.requestMatchers("/test/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
                 })
                 // .formLogin(httpSecurityFormLoginConfigurer -> {
@@ -89,11 +89,11 @@ public class SecurityConfig {
                 .build();
     }
 
-    // @Bean
-    // public WebSecurityCustomizer webSecurityCustomizer() {
-    //     boolean securityDebug = false;
-    //     return web -> web.debug(securityDebug).ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico", "/test/oui/");
-    // }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        boolean securityDebug = false;
+        return web -> web.debug(securityDebug).ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico", "/test/oui/");
+    }
 
 
 
