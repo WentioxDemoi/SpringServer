@@ -23,6 +23,5 @@ public class User {
         this.email = Email;
         this.password = Password;
         this.role = Role;
-        this.role = Role;
     }
 }
