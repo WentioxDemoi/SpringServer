@@ -31,9 +31,8 @@ public class PWDAuthController {
 
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.OK)
     public void addUser(@RequestBody UserDTO user) {
-        this.userService.handleUserRegistration(new User(user.Username, user.Email, passwordEncoder.encode(user.Password), user.Role));
+        userService.handleUserRegistration(new User(user.getUsername(), user.getEmail(), passwordEncoder.encode((user.getPassword())), user.getRole()));
     }
 
     // @GetMapping("/get_users")
@@ -41,6 +40,8 @@ public class PWDAuthController {
     //     return (this.userService.GetAllUsers());
     // }
 
+
     
 
 }
+

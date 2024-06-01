@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.Friend.controller.Auth.ErrorHandler.EmailAlreadyExistsException;
+import com.example.Friend.controller.Auth.ErrorHandler.UsernameAlreadyExistsException;
 import com.example.Friend.model.user.User;
 import com.example.Friend.model.user.UserDTO;
-import com.example.Friend.repository.user.UserRepository;
 import com.example.Friend.repository.user.UserRepository;
 
 @Service
@@ -36,8 +38,15 @@ public class UserService implements UserDetailsService {
     }
 
     public User handleUserRegistration(User user) {
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new EmailAlreadyExistsException(user.getEmail());
+        }
+        if (repository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UsernameAlreadyExistsException(user.getUsername());
+        }
         return repository.save(user);
     }
+
 
     private String[] getRoles(User user) {
         if (user.getRole() == null) {
