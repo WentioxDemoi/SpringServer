@@ -9,8 +9,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.Friend.controller.Auth.ErrorHandler.EmailAlreadyExistsException;
+import com.example.Friend.controller.Auth.ErrorHandler.EmailNotFoundException;
 import com.example.Friend.controller.Auth.ErrorHandler.UsernameAlreadyExistsException;
 import com.example.Friend.model.user.User;
 import com.example.Friend.model.user.UserDTO;
@@ -45,6 +48,23 @@ public class UserService implements UserDetailsService {
             throw new UsernameAlreadyExistsException(user.getUsername());
         }
         return repository.save(user);
+    }
+
+    public User handleUserLogin(User user) {
+        
+        User user_ = repository.findByEmail(user.getEmail())
+        .orElseThrow(() -> new EmailNotFoundException(user.getEmail()));
+
+        return user_;
+    }
+
+    public String getUsernameByEmail(String email)
+    {
+        User user_ = repository.findByEmail(email)
+        .orElseThrow(() -> new EmailNotFoundException(email));
+
+        return user_.getUsername();
+
     }
 
 
