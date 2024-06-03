@@ -1,5 +1,8 @@
 package com.example.Friend.model.user;
 import lombok.Data;
+
+import java.util.List;
+
 import jakarta.persistence.*;
 
 

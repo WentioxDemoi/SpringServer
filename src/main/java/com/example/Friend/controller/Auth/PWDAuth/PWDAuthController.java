@@ -14,13 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.Friend.controller.Auth.ErrorHandler.InvalidPasswordException;
 import com.example.Friend.model.user.User;
 import com.example.Friend.model.user.UserDTO;
+import com.example.Friend.model.weather.WeatherRequest;
 import com.example.Friend.security.JwtTokenProvider;
 import com.example.Friend.service.user.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.security.core.Authentication;
+import java.util.Objects;
 
 
 @RestController
@@ -70,8 +78,33 @@ public class PWDAuthController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
         }
+
+
     }
 
+    @PostMapping("/getweather")
+    public ResponseEntity<String> getWeather(@RequestBody WeatherRequest weatherRequest) throws JsonMappingException, JsonProcessingException {
+
+        String token = weatherRequest.getToken();
+        double latitude = weatherRequest.getLatitude();
+        double longitude = weatherRequest.getLongitude();
+        // Récupérer les données de la requête
+        String apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=0e06f6ad6382ce88d90db8a6b05a7421";
+
+// Effectuer la requête à l'API météo
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
+
+        // Extraire la température de la réponse JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode root = objectMapper.readTree(response.getBody());
+        double temperature = root.path("main").path("temp").asDouble();
+
+        // Print de la température
+        System.out.println("Temperature: " + temperature);
+
+        return response;
+    }
 
     // @GetMapping("/get_users")
     // public List<User> GetUsers() {
